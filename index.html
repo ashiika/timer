@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <style >
+      body {
+        	font-size: 65.5%;
+          margin: 0 auto;
+          font-family: 'Montserrat', sans-serif;
+          background: #581845;
+      }
+
+      h1 {
+	font-size: 4em;
+}
+
+h2 {
+	font-size: 2em;
+	padding: 0 0 20px 0;
+}
+h1,
+h2 {
+	color: white;
+	text-align: center;
+}
+
+#clock {
+  color: #fff;
+  display: block;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#clock .block {
+margin-left:10px;
+  background: #C70039;
+  border-radius: 400px;
+  display: inline-block;
+  padding: 30px;
+  width: 100%;
+	max-width: 120px;
+}
+
+#clock div > span {
+  color: white;
+  font-size: 6em
+  font-weight: bold;
+  display: inline-block;
+}
+
+.smalltext {
+  color: white;
+  font-weight: bold;
+  font-size: 2em;
+  padding-top: 5px;
+  text-transform: uppercase;
+}
+
+
+    </style>
+<h1>Let the challenge begins</h1>
+
+<div id="clock">
+  <div class="block">
+    <span class="days"></span>
+    <div class="smalltext">Days</div>
+    </div>
+
+    <div class="block">
+    	<span class="hours"></span>
+    	<div class="smalltext">Hours</div>
+  	</div>
+
+    <div class="block">
+    	<span class="minutes"></span>
+    	<div class="smalltext">Minutes</div>
+  	</div>
+
+    <div class="block">
+    	<span class="seconds"></span>
+    	<div class="smalltext">Seconds</div>
+  	</div>
+</div>
+
+<script type="text/javascript">
+  function getTimeRemaining(endtime) {
+  	var time = Date.parse(endtime) - Date.parse(new Date());
+    	var seconds = Math.floor((time / 1000) % 60);
+    	var minutes = Math.floor((time / 1000 / 60) % 60);
+    	var hours = Math.floor((time / (1000 * 60 * 60)) % 24);
+    	var days = Math.floor(time / (1000 * 60 * 60 * 24));
+  	return {
+      	'total': time,
+      	'days': days,
+      	'hours': hours,
+      	'minutes': minutes,
+      	'seconds': seconds
+  	};
+  }
+
+  function initializeClock(id, endtime) {
+  	var clock = document.getElementById(id);
+    	var spanDays = clock.querySelector('.days');
+    	var spanHours = clock.querySelector('.hours');
+    	var spanMinutes = clock.querySelector('.minutes');
+    	var spanSeconds = clock.querySelector('.seconds');
+
+  	function updateClock() {
+  		var time = getTimeRemaining(endtime);
+  		spanDays.innerHTML = time.days;
+  		spanHours.innerHTML = ('0' + time.hours).slice(-2);
+  		spanMinutes.innerHTML = ('0' + time.minutes).slice(-2);
+  		spanSeconds.innerHTML = ('0' + time.seconds).slice(-2);
+  		if (time.total <= 0) {
+  			clearInterval(timeinterval);
+  		}
+  	}//END updateClock function
+
+  	updateClock();
+  	var timeinterval = setInterval(updateClock, 1000);
+  }
+
+  //specify an exact time/date + clock region GMT = Harare time zone
+  var deadline = 'December 25 2019 23:59:59 GMT+0200';
+  initializeClock('clock', deadline);
+</script>
+
+  </body>
+</html>
